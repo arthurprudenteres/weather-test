@@ -4,12 +4,18 @@ import { useState } from "react";
 function Navbar() {
   const [city, setCity] = useState("");
 
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const value = target.value;
+    setCity(value);
+  };
+
   return (
     <div className="bg-blue-200 p-4 flex items-center justify-center space-x-4">
       <div className="flex items-center">
         <input
           className="py-2 px-4 rounded-l-2xl"
-          onInput={(e) => { setCity(e.target.value) }}
+          onInput={handleInput}
           type="text"
           value={city}
           placeholder="Cidade"
