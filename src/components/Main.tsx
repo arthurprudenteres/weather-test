@@ -9,10 +9,13 @@ export const Main = () => {
             <div className="flex justify-end">
               <FaSyncAlt />
             </div>
+            {/* LLocalização atual */}
             <h1 className="text-4xl">Ipameri</h1>
+            {/* Temperatura atual */}
             <h1 className="text-9xl">
               23<sup>o</sup>C
             </h1>
+            {/* Clima atual */}
             <h1 className="text-4xl">Limpo</h1>
           </div>
         </div>
@@ -34,6 +37,7 @@ export const Main = () => {
               ))}
             </div>
             <div className="rounded-2xl bg-blue-600 py-5 pl-8 flex flex-col justify-between h-full">
+              {/* Buscar dados com fetch */}
             {[
                 "22 ° C",
                 "14%",
