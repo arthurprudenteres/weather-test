@@ -12,6 +12,8 @@ export const Main = () => {
   const [vento, setVento] = useState("Off");
   const [pluviometro, setPluviometro] = useState("Off");
   const [tempo, setTempo] = useState("Off");
+  const [maxtemp, setMaxtemp] = useState("Off");
+  const [mintemp, setMintemp] = useState("Off");
 
   getData().then((data) => {
     setTemperatura(data.temperatura + "°C");
@@ -21,6 +23,8 @@ export const Main = () => {
     if (data.tempo === "1") {
       setTempo("Limpo");
     } else setTempo("Chuvoso")
+    setMaxtemp(data.maxtemp + "°C");
+    setMintemp(data.mintemp + "°C");
   })
   
   return (
@@ -65,8 +69,8 @@ export const Main = () => {
                 umidade,
                 vento,
                 pluviometro,
-                "28° C",
-                "22° C",
+                maxtemp,
+                mintemp,
               ].map((e, i) => (
                 <p key={i} className="text-white font-semibold text-lg">
                   {e}
