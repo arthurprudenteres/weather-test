@@ -4,6 +4,7 @@ import { useState,useEffect } from "react";
 
 
 
+
 export const Main = () => {
   // Importar dados do servidor
   const [temperatura, setTemperatura] = useState("Off");
@@ -12,19 +13,15 @@ export const Main = () => {
   const [pluviometro, setPluviometro] = useState("Off");
   const [tempo, setTempo] = useState("Off");
 
-
-  useEffect(() => {
-    console.log("Carregando dados...")
-    const data = getData()
-    if (data === "error") {
-      setTemperatura("Off")
-      setUmidade("Off")
-      setVento("Off")
-      setPluviometro("Off")
-    }
-  },[])
-
-  
+  getData().then((data) => {
+    setTemperatura(data.temperatura + "°C");
+    setUmidade(data.umidade + "%");
+    setVento(data.vento + "km/h");
+    setPluviometro(data.nivel + "mm");
+    if (data.tempo === "1") {
+      setTempo("Limpo");
+    } else setTempo("Chuvoso")
+  })
   
   return (
     <div className="max-w-7xl mx-auto my-5 px-4 min-h-screen">
