@@ -1,6 +1,32 @@
 import { FaSyncAlt } from "react-icons/fa";
+import { getData } from "./api/station";
+import { useState,useEffect } from "react";
+
+
+
 
 export const Main = () => {
+  // Importar dados do servidor
+  const [temperatura, setTemperatura] = useState("Off");
+  const [umidade, setUmidade] = useState("Off");
+  const [vento, setVento] = useState("Off");
+  const [pluviometro, setPluviometro] = useState("Off");
+  const [tempo, setTempo] = useState("Off");
+  const [maxtemp, setMaxtemp] = useState("Off");
+  const [mintemp, setMintemp] = useState("Off");
+
+  getData().then((data) => {
+    setTemperatura(data.temperatura + "°C");
+    setUmidade(data.umidade + "%");
+    setVento(data.vento + "km/h");
+    setPluviometro(data.nivel + "mm");
+    if (data.tempo === "1") {
+      setTempo("Limpo");
+    } else setTempo("Chuvoso")
+    setMaxtemp(data.maxtemp + "°C");
+    setMintemp(data.mintemp + "°C");
+  })
+  
   return (
     <div className="max-w-7xl mx-auto my-5 px-4 min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[30% 27.5% 38%] gap-8">
@@ -13,10 +39,10 @@ export const Main = () => {
             <h1 className="text-4xl">Ipameri</h1>
             {/* Temperatura atual */}
             <h1 className="text-9xl">
-              23<sup>o</sup>C
+              {temperatura}
             </h1>
             {/* Clima atual */}
-            <h1 className="text-4xl">Limpo</h1>
+            <h1 className="text-4xl">{tempo}</h1>
           </div>
         </div>
 
@@ -39,12 +65,12 @@ export const Main = () => {
             <div className="rounded-2xl bg-blue-600 py-5 pl-8 flex flex-col justify-between h-full">
               {/* Buscar dados com fetch */}
             {[
-                "22 ° C",
-                "14%",
-                "2 km/h",
-                "2 mm",
-                "28° C",
-                "22° C",
+                temperatura,
+                umidade,
+                vento,
+                pluviometro,
+                maxtemp,
+                mintemp,
               ].map((e, i) => (
                 <p key={i} className="text-white font-semibold text-lg">
                   {e}
